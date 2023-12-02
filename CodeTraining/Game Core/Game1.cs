@@ -22,7 +22,6 @@ namespace CodeTraining
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             _graphics.PreferredBackBufferWidth = Data.ScreenWidth;
             _graphics.PreferredBackBufferHeight = Data.ScreenHeight;
             _graphics.ApplyChanges();
@@ -37,7 +36,6 @@ namespace CodeTraining
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             GameStateManager.Init(Content);
 
         }
@@ -47,7 +45,6 @@ namespace CodeTraining
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
             GameStateManager.Update(gameTime);
             if (Data.Exit)
             {
@@ -61,7 +58,6 @@ namespace CodeTraining
         {
             GraphicsDevice.Clear(Color.BurlyWood);
 
-            // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
             GameStateManager.Draw(gameTime, _spriteBatch);

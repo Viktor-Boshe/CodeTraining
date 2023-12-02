@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using CodeTraining.Menu;
+using CodeTraining.Scenes;
 
 namespace CodeTraining.GameManager
 {
@@ -22,10 +23,12 @@ namespace CodeTraining.GameManager
     public class GameStateManager : Component
     {
         private MenuScene menuScene = new MenuScene();
+        private GameScene gameScene = new GameScene();
 
         public override void Init(ContentManager contentManager)
         {
             menuScene.Init(contentManager);
+            gameScene.Init(contentManager);
         }
 
         public override void Update(GameTime gameTime)
@@ -36,6 +39,7 @@ namespace CodeTraining.GameManager
                     menuScene.Update(gameTime);
                     break;
                 case GameState.Game:
+                    gameScene.Update(gameTime);
                     // Update game state
                     break;
                 case GameState.Options:
@@ -54,10 +58,9 @@ namespace CodeTraining.GameManager
                     menuScene.Draw(gameTime, _spriteBatch);
                     break;
                 case GameState.Game:
-                    // Draw game state
+                    gameScene.Draw(gameTime, _spriteBatch);
                     break;
                 case GameState.Options:
-                    // Draw options state
                     break;
                 default:
                     break;
