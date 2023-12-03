@@ -12,7 +12,6 @@ namespace CodeTraining
         private GameStateManager GameStateManager = new GameStateManager();
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -46,6 +45,7 @@ namespace CodeTraining
                 Exit();
 
             GameStateManager.Update(gameTime);
+
             if (Data.Exit)
             {
                 this.Exit();

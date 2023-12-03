@@ -119,15 +119,14 @@ namespace CodeTraining.Menu
             if (!playButtonClicked)
             {
                 _spriteBatch.Draw(backgroundFrames[currentFrame], windowRectangle, Color.White);
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    _spriteBatch.Draw(buttons[i], buttonRectangles[i], input.mouseRectangle.Intersects(buttonRectangles[i]) ? Color.Gray : Color.White);
+                }
             }
             else
             {
                 _spriteBatch.Draw(playAnimationFrames[currentFrame], windowRectangle, Color.White);
-            }
-
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                _spriteBatch.Draw(buttons[i], buttonRectangles[i], input.mouseRectangle.Intersects(buttonRectangles[i]) ? Color.Gray : Color.White);
             }
         }
     }

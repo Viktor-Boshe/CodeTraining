@@ -12,6 +12,8 @@ namespace CodeTraining.GameManager
     {
         public MouseState mouseState, oldmouseState;
         public Rectangle mouseRectangle;
+        private KeyboardState currentKeyboardState;
+        private KeyboardState previousKeyboardState;
         public void UpdateMouse(GameTime gameTime)
         {
             oldmouseState = mouseState;
@@ -21,7 +23,22 @@ namespace CodeTraining.GameManager
         }
         public void UpdateKeyboard(GameTime gameTime)
         {
+            previousKeyboardState = currentKeyboardState;
+            currentKeyboardState = Keyboard.GetState();
+        }
+        public bool IsKeyDown(Keys key)
+        {
+            return currentKeyboardState.IsKeyDown(key);
+        }
 
+        public bool IsKeyUp(Keys key)
+        {
+            return currentKeyboardState.IsKeyUp(key);
+        }
+
+        public bool WasKeyPressed(Keys key)
+        {
+            return IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
         }
     }
 }

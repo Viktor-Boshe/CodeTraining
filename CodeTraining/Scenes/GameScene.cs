@@ -14,6 +14,7 @@ namespace CodeTraining.Scenes
     internal class GameScene : Component
     {
         Player player;
+        Input input;
         private Texture2D[] backgroundFrames;
 
         private int currentFrame;
@@ -23,8 +24,9 @@ namespace CodeTraining.Scenes
         public override void Init(ContentManager contentManager)
         {
             player = new Player();
-            backgroundFrames = new Texture2D[8];
+            input = new Input();
             player.LoadContent(contentManager);
+            backgroundFrames = new Texture2D[8];
             for(int i = 0;i < backgroundFrames.Length; i++)
             {
                 backgroundFrames[i] = contentManager.Load<Texture2D>($"GameBackground/back-{i}");
@@ -42,7 +44,9 @@ namespace CodeTraining.Scenes
                 currentFrame = (currentFrame + 1) % backgroundFrames.Length;
                 frameTimer = 0;
             }
-            player.Update(gameTime);
+
+            input.UpdateKeyboard(gameTime);
+            player.Update(gameTime, input);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
