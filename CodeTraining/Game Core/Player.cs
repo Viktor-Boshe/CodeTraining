@@ -11,7 +11,7 @@ namespace CodeTraining.Game_Core
     {
         private Dictionary<string, Texture2D[]> animations;
         private string currentAnimation;
-        private Rectangle playerRectangle;
+        public Rectangle playerRectangle;
         private int currentFrame;
         private double frameTimer;
         private double frameInterval = 75;
@@ -103,12 +103,14 @@ namespace CodeTraining.Game_Core
             {
                 currentAnimation = animationName;
                 currentFrame = 0;
-                playerRectangle = new Rectangle(
-                    playerRectangle.X,
-                    playerRectangle.Y,
-                    animations[currentAnimation][currentFrame].Width * 2,
-                    animations[currentAnimation][currentFrame].Height * 2
-                );
+
+                int originalWidth = animations[currentAnimation][currentFrame].Width * 2;
+                int originalHeight = animations[currentAnimation][currentFrame].Height * 2;
+
+                int newX = playerRectangle.X;
+                int newY = playerRectangle.Y + (playerRectangle.Height - originalHeight);
+
+                playerRectangle = new Rectangle(newX, newY, originalWidth, originalHeight);
             }
         }
 

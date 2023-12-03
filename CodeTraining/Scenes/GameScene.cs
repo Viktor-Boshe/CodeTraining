@@ -14,6 +14,7 @@ namespace CodeTraining.Scenes
     internal class GameScene : Component
     {
         Player player;
+        OpponentAI opponent;
         Input input;
         private Texture2D[] backgroundFrames;
 
@@ -21,13 +22,16 @@ namespace CodeTraining.Scenes
         private double frameTimer;
         private const double frameInterval = 140;
         private Rectangle windowRectangle;
+
         public override void Init(ContentManager contentManager)
         {
             player = new Player();
+            opponent = new OpponentAI(player);  // Move this line after initializing player
             input = new Input();
             player.LoadContent(contentManager);
+            opponent.LoadContent(contentManager);
             backgroundFrames = new Texture2D[8];
-            for(int i = 0;i < backgroundFrames.Length; i++)
+            for (int i = 0; i < backgroundFrames.Length; i++)
             {
                 backgroundFrames[i] = contentManager.Load<Texture2D>($"GameBackground/back-{i}");
             }
@@ -36,7 +40,6 @@ namespace CodeTraining.Scenes
 
         public override void Update(GameTime gameTime)
         {
-
             frameTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (frameTimer > frameInterval)
@@ -47,13 +50,14 @@ namespace CodeTraining.Scenes
 
             input.UpdateKeyboard(gameTime);
             player.Update(gameTime, input);
+            opponent.Update(gameTime, input);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(backgroundFrames[currentFrame], windowRectangle, Color.White);
             player.Draw(_spriteBatch);
+            opponent.Draw(_spriteBatch);
         }
-
     }
 }
